@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>||연산자</h1>
+</body>
+</html>
+
+<script>
+    function showMsg(text){
+        //자바스크립트는 매개변수에 기본값을 주지도 않고 호출 시 값을
+        //전달하지도 않으면 undefined타입으로 전달한다.
+        if(text === undefined)
+        {
+            text = "빈 문자열";
+        }
+        console.log(text);
+    }
+
+    showMsg("hello");
+    showMsg(); //자바처럼 에러가 발생하지 않는다 그냥 함수를 호출한다.매개변수에는 undefined가 할당된다.
+
+    function showCount(count)
+    {
+        count = count ?? "unknown"; //null값으로 올 때 처리 
+    }
+
+    showCount(5);
+    showCount(null);
+    showMsg();
+</script>

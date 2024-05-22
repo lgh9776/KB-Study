@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        이름 : <input type="text" name="name" id="name"> </br>
+        국어 : <input type="text" name="kor" id="kor"> </br>
+        영어 : <input type="text" name="eng" id="eng"> </br>
+        수학 : <input type="text" name="mat" id="mat"> </br>
+
+        <button type="button" id="btnAppend">추가</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>국어</th>
+                <th>영어</th>
+                <th>수학</th>
+                <th>총점</th>
+                <th>평균</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+</body>
+</html>
+
+<script>
+
+    let scores = [
+        {id:1, name:"홍길동", kor:90, eng:80, mat:70},
+        {id:2, name:"임꺽정", kor:100, eng:70, mat:90},
+        {id:3, name:"조승연", kor:95, eng:100, mat:100},
+        {id:4, name:"강형구", kor:80, eng:60, mat:90},
+        {id:5, name:"강감찬", kor:70, eng:80, mat:80},
+        {id:6, name:"서희", kor:90, eng:80, mat:70}
+    ];
+
+    function onLoad()
+    {
+        //테이블에 tbody 객체를 가져온다
+        let tbody = document.querySelector("#tbody");
+        scores.forEach(s => {
+            //행을 추가한다
+            console.log(s);
+            let trow = tbody.insertRow(tbody.rows.length); //맨 마지막에 행 추가
+            let cell1 = trow.insertCell(0);
+            let cell2 = trow.insertCell(1);
+            let cell3 = trow.insertCell(2);
+            let cell4 = trow.insertCell(3);
+            let cell5 = trow.insertCell(4);
+
+            cell1.innerHtml = s.name;
+            cell2.innerHtml = s.kor;
+            cell3.innerHtml = s.eng;
+            cell4.innerHtml = s.mat;
+            cell5.innerHtml = s.kor + s.eng + s.mat;
+        });
+    }
+
+    window.onload = ()=>{
+            onLoad();
+    }
+
+    //window.onload =onLoad;
+
+</script>

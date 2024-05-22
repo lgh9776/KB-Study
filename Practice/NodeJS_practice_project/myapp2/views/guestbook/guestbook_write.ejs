@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" name="myform">
+        title : <input type="text" name="title" id="title"><br/>
+        writer : <input type="text" name="writer" id="writer"><br/>
+        <button type="button" id="btnSave">등록</button>
+    </form>
+</body>
+</html>
+
+<script>
+    window.onload=()=>{
+        document.getElementById("btnSave").addEventListener(
+            "click", function(){
+                let frm = document.myform;
+                frm.action="/guestbook/save";
+                frm.submit(); //서버로 보내라
+            })
+    }
+</script>

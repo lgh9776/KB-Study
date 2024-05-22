@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" name="myform">
+        name : <input type="text" name="name" id="name"><br/>
+        kor : <input type="text" name="kor" id="kor"><br/>
+        eng : <input type="text" name="eng" id="eng"><br/>
+        math : <input type="text" name="math" id="math"><br/>
+        <button type="button" id="btnSave">등록</button>
+    </form>
+</body>
+</html>
+
+<script>
+    window.onload=()=>{
+        document.getElementById("btnSave").addEventListener(
+            "click", function(){
+                let frm = document.myform;
+                frm.action = "/score/save";
+                frm.submit();
+            })
+    }
+</script>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>원의 반경 계산하기</title>
+    <style>
+    .info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
+    .info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
+    .info .label {display:inline-block;width:50px;}
+    .number {font-weight:bold;color:#00a0e9;} 
+    </style>
+</head>
+<body>
+<div id="map" style="width:100%;height:600px;"></div>  
+<p>
+    <button onclick="removeCircles()">모두 지우기</button> <br>  
+</p>  
+<em>
+    지도를 마우스로 클릭하면 원 그리기가 시작되고 <br>
+    오른쪽 마우스를 클릭하면 원 그리기가 종료됩니다    
+</em>
+
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=419d33b72c733e72aa9db5c1fee85100"></script>
+<script>
+var mapContainer = document.getElementById('map'),
+    mapOption = {
+        center : new kakao.maps.LatLng(37.5481533, 127.0733985),
+        level : 3
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption);
+    
+var drawingFlag = false;
+var centerPosition;
+var drawingCircle;
+var drawingLine;
+var drawingOverlay;
+var drawingDot;
+
+var circles = [];
+
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+        
+    if (!drawingFlag) {    
+        drawingFlag = true; 
+        centerPosition = mouseEvent.latLng; 
+
+        if (!drawingLine) {
+            drawingLine = new kakao.maps.Polyline({
+                strokeWeight: 3,
+                strokeColor: '#00a0e9',
+                strokeOpacity: 1,
+                strokeStyle: 'solid'
+            });    
+        }
+        
+        if (!drawingCircle) {                    
+            drawingCircle = new kakao.maps.Circle({ 
+                strokeWeight: 1,
+                strokeColor: '#00a0e9',
+                strokeOpacity: 0.1,
+                strokeStyle: 'solid',
+                fillColor: '#00a0e9',
+                fillOpacity: 0.2
+            });     
+        }
+        
+        if (!drawingOverlay) {
+            drawingOverlay = new kakao.maps.CustomOverlay({
+                xAnchor: 0,
+                yAnchor: 0,
+                zIndex: 1
+            });              
+        }
+    }
+    });
+
+// 지도에 마우스무브 이벤트를 등록합니다
+// 원을 그리고있는 상태에서 마우스무브 이벤트가 발생하면 그려질 원의 위치와 반경정보를 동적으로 보여주도록 합니다
+kakao.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
+    if (drawingFlag) {
+
+        var mousePosition = mouseEvent.latLng; 
+        var linePath = [centerPosition, mousePosition];     
+        drawingLine.setPath(linePath);
+        var length = drawingLine.getLength();
+        
+        if(length > 0) {
+            var circleOptions = { 
+                center : centerPosition, 
+            radius: length,                 
+            };
+            drawingCircle.setOptions(circleOptions); 
+            var radius = Math.round(drawingCircle.getRadius()),   
+            content = '<div class="info">반경 <span class="number">' + radius + '</span>m</div>';
+            drawingOverlay.setPosition(mousePosition);
+            drawingOverlay.setContent(content);
+            drawingCircle.setMap(map);
+            drawingLine.setMap(map);  
+            drawingOverlay.setMap(map);
+        } else { 
+            drawingCircle.setMap(null);
+            drawingLine.setMap(null);    
+            drawingOverlay.setMap(null);
+            
+        }
+    }     
+});     
+
+kakao.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
+
+    if (drawingFlag) {
+        var rClickPosition = mouseEvent.latLng; 
+        var polyline = new kakao.maps.Polyline({
+            path: [centerPosition, rClickPosition],
+            strokeWeight: 3,
+            strokeColor: '#00a0e9',
+            strokeOpacity: 1,
+            strokeStyle: 'solid'
+        });
+        
+        var circle = new kakao.maps.Circle({ 
+            center : centerPosition,
+            radius: polyline.getLength(),
+            strokeWeight: 1,
+            strokeColor: '#00a0e9',
+            strokeOpacity: 0.1,
+            strokeStyle: 'solid',
+            fillColor: '#00a0e9',
+            fillOpacity: 0.2
+        });
+        
+        var radius = Math.round(circle.getRadius()),
+            content = getTimeHTML(radius);
+
+        var radiusOverlay = new kakao.maps.CustomOverlay({
+            content: content,
+            position: rClickPosition,
+            xAnchor: 0,
+            yAnchor: 0,
+            zIndex: 1 
+        });  
+
+        circle.setMap(map); 
+        polyline.setMap(map);
+        radiusOverlay.setMap(map);
+        
+        var radiusObj = {
+            'polyline' : polyline,
+            'circle' : circle,
+            'overlay' : radiusOverlay
+        };
+        
+        circles.push(radiusObj);   
+        drawingFlag = false;
+        centerPosition = null;
+        
+        drawingCircle.setMap(null);
+        drawingLine.setMap(null);   
+        drawingOverlay.setMap(null);
+    }
+});    
+    
+function removeCircles() {         
+    for (var i = 0; i < circles.length; i++) {
+        circles[i].circle.setMap(null);    
+        circles[i].polyline.setMap(null);
+        circles[i].overlay.setMap(null);
+    }         
+    circles = [];
+}
+
+function getTimeHTML(distance) {
+
+    var walkkTime = distance / 67 | 0;
+    var walkHour = '', walkMin = '';
+
+    if (walkkTime > 60) {
+        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
+    }
+    walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
+
+    var bycicleTime = distance / 227 | 0;
+    var bycicleHour = '', bycicleMin = '';
+
+
+    if (bycicleTime > 60) {
+        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
+    }
+    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
+
+    var content = '<ul class="info">';
+    content += '    <li>';
+    content += '        <span class="label">총거리</span><span class="number">' + distance + '</span>m';
+    content += '    </li>';
+    content += '    <li>';
+    content += '        <span class="label">도보</span>' + walkHour + walkMin;
+    content += '    </li>';
+    content += '    <li>';
+    content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
+    content += '    </li>';
+    content += '</ul>'
+
+    return content;
+    }
+</script>

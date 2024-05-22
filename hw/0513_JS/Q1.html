@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>아이디 <input type="text" id="id"></p>
+    <div id="idCheck"></div>
+    <button type="button" id="btn1">아이디체크</button>
+    <hr>
+    <p>지식인 검색어 <input type="text" id="search"></p>
+    <button type="button" id="btn2">지식인 검색</button>
+    <hr>
+    <p>보고 싶은 웹툰 입력 <input type="text" id="webtoon"></p>
+    <button type="button" id="btn3">웹툰 검색</button>
+</body>
+</html>
+
+<script>
+    window.onload=()=>{
+        let btn1 = document.querySelector("#btn1");
+        let btn2 = document.querySelector("#btn2");
+        let btn3 = document.querySelector("#btn3");
+
+        btn1.addEventListener("click", ()=>{
+            let id = document.getElementById("id").value;
+            if(id === "root")
+            {
+                document.getElementById("idCheck").innerHTML = "아이디 성공";
+            }
+        });
+
+        btn2.addEventListener("click", ()=>{
+            let search = document.getElementById("search").value;
+            location.href = "https://kin.naver.com/search/list.naver?query=" + search;
+        });
+
+        btn3.addEventListener("click", ()=>{
+            let webtoon = document.getElementById("webtoon").value;
+            if(webtoon == "꿈의 기업"){
+                web = "687915";
+            }
+            else if(webtoon == "육아 일기"){
+                web = "748105";
+            }
+            location.href = "https://comic.naver.com/webtoon/list?titleId=" + web;
+        });
+
+
+
+    }
+</script>

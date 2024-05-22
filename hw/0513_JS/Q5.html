@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <h2 style="text-align: center;">그림을 본 느낌은?</h2>
+    <div id="img"></div>
+    <p></p>
+    <input type="text" id="x">
+    <button type="button" id="btn" style="background-color: blue; color: white;">댓글 달기</button></br>
+    <hr>
+    <div id="result"></div>
+    <hr style="color: red;">
+</body>
+</html>
+
+<script>
+    img = '<img src="JS_IMG/baby.png">';
+    $("#img").html(img);
+
+    $(document).ready(function(){
+        let btn = $("#btn");
+        btn.click(()=>{
+            let x = $("#x").val();
+            $("#result").html(x);
+        })
+    })
+</script>

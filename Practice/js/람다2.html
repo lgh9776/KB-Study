@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>람다</h1>
+</body>
+</html>
+
+<script>
+    //숫자, 문자배열에 대해서 람다 적용하기
+    let arr1 = [56,7,8,9,11,14,13,22,67,15,33,42]
+
+    let evenArr=[]; //evenArr=new Array();
+    let oddArr=[]; //oddArr=new Array();
+    for(i = 0; i < arr1.length; i++)
+    {
+        if(arr1[i] % 2 == 0)
+            evenArr.push(arr1[i]);
+        else
+            oddArr.push(arr1[i]);
+    }
+
+    console.log(evenArr);
+    console.log(oddArr);
+
+    //콜백함수가 매개변수 하나 가져가서 T or F 반환
+    //T인 애들만 모아서 배열에 넣어 전달
+    //filter = 중간연산 (arr 반환해줘서 . 붙일 수 ㅇ), forEach = 마무리연산..?
+    evenArr = arr1.filter(x => x % 2 == 0).forEach(x => console.log(x));
+    console.log(evenArr);
+
+    //함수에는 꼭 1가지 기능만! 작을수록 좋다
+    //기능이 또 생기면 또 빼자! (JAVA > 클린코드 //객체지향을 예쁘게 사용하는법)
+
+    //map - ***연산***을 가한 값을 반환한다
+    let arr2 = arr1.map(x => x + 10);
+    console.log(arr2);
+
+    //짝수만 골라서 10씩 더하기
+    arr1.filter(a => a % 2 == 0)
+        .map(a => a + 10)
+        .forEach(x => console.log(x));
+
+
+</script>

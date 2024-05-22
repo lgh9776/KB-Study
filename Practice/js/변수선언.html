@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>변수(호이스팅)</h1>
+</body>
+</html>
+
+<script>
+    let a = 100;
+    //let a = 200;
+    if(true)
+    {
+        let a = 500;
+    }
+    console.log("a=", a);
+
+    //엄격모드
+    b = 200;
+    console.log(a+b);
+</script>

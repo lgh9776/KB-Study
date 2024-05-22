@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>형전환</h1>
+</body>
+</html>
+
+<script>
+    //자바스크립트는 대충 돌아간다
+    let a=10;
+    if(a) //0이 아니면 true로 받음 
+    {
+        console.log("true");
+    }
+    else
+    {
+        console.log("flase");
+    }
+
+    if(a == "10") //JS는 자동형전환을 해서 ture 반환 (정수형과 스트링의 비교!) -> ===, !== 자동형전환을 막음 (엄격 비교)
+    {
+        console.log("true");
+    }
+    else
+    {
+        console.log("flase");
+    }
+
+    if(a === "10")
+    {
+        console.log("true");
+    }
+    else
+    {
+        console.log("flase");
+    }
+
+</script>

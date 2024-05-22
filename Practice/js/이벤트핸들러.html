@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>이벤트 핸들러</h1>
+    <button type="button" onclick="alert('press')">누르기</button>
+    <button type="button" onclick="goPress()">누르기2</button>
+    <button type="button" id="btnPress">누르기3</button>
+
+</body>
+</html>
+
+<script>
+    function goPress()
+    {
+        alert("^----------------------^");
+    }
+
+    //전체 html 문서가 메모리에 로딩되어 돔트리 구성된 후
+    window.onload = function(){
+        let btn = document.getElementById("btnPress");
+        btn.addEventListener("click", ()=>{
+            alert("이벤트 리스너");
+        });
+    }
+</script>

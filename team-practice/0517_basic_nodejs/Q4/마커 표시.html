@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="map" style="width:100%;height:600px;"></div>
+</body>
+</html>
+
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=419d33b72c733e72aa9db5c1fee85100"></script>
+<script>
+var mapContainer = document.getElementById('map'),
+    mapOption = {
+        center : new kakao.maps.LatLng(37.5481533, 127.0733985),
+        level : 3
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+var markerPosition  = new kakao.maps.LatLng(37.5481533, 127.0733985); 
+
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+marker.setMap(map);
+
+map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+</script>

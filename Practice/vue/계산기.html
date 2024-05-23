@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>계산기</h1>
+        X : <input v-model="x"> <br/>
+        Y : <input v-model="y"> <br/>
+
+        <button type="button" v-on:click="add">+</button> 
+        <button type="button" v-on:click="sub">-</button> 
+        <button type="button" v-on:click="mul">*</button> 
+        <button type="button" v-on:click="dev">/</button>
+        </br>
+
+        <span style="color:red;font-size:20px;">{{result}}</span><br/>
+    </div>
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data(){
+            return{
+                x:0,
+                y:0,
+                result:0
+            }
+        },
+        methods:{
+            add:function(){
+                this.result = parseInt(this.x) + parseInt(this.y);
+            },
+
+            sub:function(){
+                this.result = parseInt(this.x) - parseInt(this.y);
+            },
+
+            mul:function(){
+                this.result = parseInt(this.x) * parseInt(this.y);
+            },
+
+            dev:function(){
+                this.result = parseInt(this.x) / parseInt(this.y);
+            }
+        }
+    }).mount("#app")
+</script>

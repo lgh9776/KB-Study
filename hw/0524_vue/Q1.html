@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        금액 : <input type="text" v-model.number="amount"/> <br/>
+        <button @click="deposit">입금</button>
+        <button @click="withdraw">인출</button>
+        <button @click="accountEvent" :disabled="eventClicked">계좌 개설 이벤트</button>
+        <!-- <button @click.once="balance += 10000">계좌 개설 이벤트</button> -->
+        <br/>
+
+        <h3>계좌 잔고 : {{balance}}</h3>
+    </div>
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data(){
+            return{
+                amount:0, balance:0, eventClicked: false
+            }
+        },
+
+        methods:{
+            deposit:function(){
+                let amt = parseInt(this.amount);
+                if(amt <= 0){
+                    alert("0보다 큰 값을 예금해야 합니다.");
+                }
+                else{
+                    this.balance += amt;
+                }
+            },
+
+            withdraw:function(){
+                let amt = parseInt(this.amount);
+                if(amt <= 0){
+                    alert("0보다 큰 값을 인출할 수 있습니다.");
+                }
+                else if(amt > this.balance){
+                    alert("잔고보다 많은 금액을 인출할 수 없습니다.")
+                }
+                else{
+                    this.balance -= amt;
+                }
+            },
+
+            accountEvent: function() {
+                this.balance += 10000;
+                this.eventClicked = true;
+            }
+        },
+    }).mount("#app");
+</script>

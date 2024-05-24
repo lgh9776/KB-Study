@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        #outer {
+            width: 300px;
+            height: 300px;
+            border: 50px;
+            background-color: aqua;
+            position: relative;
+            border: 3px solid black;
+        }
+        #inner {
+            width: 150px;
+            height: 150px;
+            background-color: yellow;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="outer" @click="outerClick">
+            <div id="inner" @click="innerClick"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+    Vue.createApp({
+        name:"App",
+        methods:{
+            outerClick(e){
+                console.log("### OUTER CLICK");
+                console.log("Event Phase : ", e.eventPhase);
+                console.log("Current Target : ", e.currentTarget);
+                console.log("Target : ", e.target);
+                e.stopPropagation();
+                alert("하늘색 바깥쪽을 클릭하셨군요");
+            },
+            innerClick(e){
+                console.log("### INNER CLICK");
+                console.log("Event Phase : ", e.eventPhase);
+                console.log("Current Target : ", e.currentTarget);
+                console.log("Target : ", e.target);
+                e.stopPropagation();
+                alert("노란색 안쪽을 클릭하셨군요");
+            },
+        },
+    }).mount("#app");
+</script>

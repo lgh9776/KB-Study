@@ -38,7 +38,7 @@ router.post('/logon', function(req, res, next){
 
 router.get("/write", (req, res, next) => {
     res.render("member/member_write");
-})
+});
 
 router.post("/join", (req, res, next) => {
     const {userid, password, username} = req.body;
@@ -48,6 +48,22 @@ router.post("/join", (req, res, next) => {
 
     members.push({"id":id, "name":username, "userid":userid, "password":password});
     res.send({"result":"OK", "msg":"회원 가입 성공"});
-})
+});
+
+router.post("/checkid", (req, res, next) => {
+    const {userid} = req.body; //destruction(해체)
+    console.log(userid, req.body);
+
+    let result = members.find(e => e.userid == userid); //find 함수는 일치하는 첫번째 객체를 찾아 반환, 없으면 null
+
+    if(result == null)
+    {
+        res.send({"result":"OK", msg:"사용가능한 아이디입니다."});
+    }
+    else
+    {
+        res.send({"result":"FAIL", msg:"이미 사용중인 아이디입니다."});
+    }
+});
 
 module.exports = router;

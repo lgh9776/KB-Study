@@ -7,10 +7,15 @@
 </head>
 <body>
     <form action="">
+            <input type="hidden" id="checkyn" name="checkyn" value="N"/> <!-- 사용자는 몰라도 되니까 hidden -->
+
         <h1>회원가입</h1>
-        이름 : <input type="text" name="username" id="username"><br/>
-        아이디 : <input type="text" name="userid" id="userid"><br/>
+        아이디 : <input type="text" name="userid" id="userid">
+        <button type="button" id="btnDuplicate">중복체크</button> <!-- 등록 시에 중복체크가 했음을 알려줘야함 but 사용자는 몰라도됨 -->
+
+        <br/>
         패스워드 : <input type="password" name="password" id="password"><br/>
+        이름 : <input type="text" name="username" id="username"><br/>
         <button type="button" id="btnSend">회원가입</button>
     </form>
 </body>
@@ -19,6 +24,13 @@
 <script>
     window.onload =()=>{
         document.querySelector("#btnSend").addEventListener("click", ()=>{
+            
+            if(document.querySelector("#checkyn").value!="Y")
+            {
+                alert("아이디 중복체크를 하세요");
+                return;
+            }
+
             const data = {
                 username:document.querySelector("#username").value,
                 userid:document.querySelector("#userid").value,
@@ -42,5 +54,36 @@
             })
             .catch(err => {console.log(err);})
         });
+
+
+        document.querySelector("#btnDuplicate").addEventListener("click", async()=>{ //여기 함수가 async가 아니면 await 불가
+            let url ="http://127.0.0.1:3000/member/checkid"; //수정 1
+            const res = await fetch(url, {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    userid:document.querySelector("#userid").value //수정 2
+                })
+            });
+
+            const result = await res.json(); //json() 함수도 비동기
+            console.log(result) //수정 3
+            if(result.result == "OK")
+            {
+                alert(result.msg);
+                document.querySelector("#checkyn").value="Y"; //Y일때만 통과시키기
+                document.querySelector("#userid").readOnly=true; 
+                document.querySelector("#btnDuplicate").disabled=true; //버튼 비활성화
+
+                /*
+                readonly - 서버로 정보 전송은 가능, 수정 불가능
+                disabled - 서버로 정보 전송도 안됨
+                */
+            }
+            else
+            alert(result.msg);
+        })
     }
 </script>

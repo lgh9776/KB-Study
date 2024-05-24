@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span>{{message}}</span><br/>
+        <span>{{reverseMessage}}</span><br/> <!-- computed -->
+        <span>{{method1()}}</span><br/> <!-- method -->
+
+        <input v-model="message"/><br/>
+        <button v-on:click="reverseMessage">computed</button>
+        <button v-on:click="method1">methods</button>
+    </div>
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data(){
+            return{
+                message:"Hello Vue"
+            }
+        },
+
+        computed:{ //1번 호출하고 나면 캐시됨 -> message 값이 변경되지 않는한 다시 호출x
+            reverseMessage:function(){
+                console.log("computed");
+                return this.message.split("").reverse().join(""); //문자열 뒤집어서 반환
+            }
+        },
+
+        methods:{ //계속 호출 가능
+            method1:function(){
+                console.log("methods");
+                return this.message.split("").reverse().join("");
+            }
+        }
+    }).mount("#app");
+</script>

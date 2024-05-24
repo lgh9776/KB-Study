@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table border="1">
+            <tr v-for="s in scoresList">
+                <td>{{s.name}}</td>
+                <td>{{s.kor}}</td>
+                <td>{{s.eng}}</td>
+                <td>{{s.mat}}</td>
+                <td>{{s.total}}</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data(){
+            return{
+                scoresList:[
+                    {name:"홍길동", kor:90, eng:80, mat:80},
+                    {name:"임꺽정", kor:90, eng:80, mat:90},
+                    {name:"이정수", kor:80, eng:100, mat:70},
+                    {name:"장길산", kor:70, eng:90, mat:80},
+                    {name:"조승연", kor:60, eng:80, mat:80},
+                ]
+            }
+        },
+
+        created:function(){
+            this.scoresList.forEach((e)=>e.total = e.kor + e.eng + e.mat);
+        },
+    }).mount("#app");
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 태그에 반복을 넣어야함 -->
+        <span v-for="todo in todos">
+            {{todo.id}} {{todo.text}}</br>   
+        </span>
+
+        <ul>
+            <li v-for="todo in todos">
+                {{todo.id}} {{todo.text}}
+            </li>   
+        </ul>
+
+        <table border="1">
+            <tr v-for="todo in todos">
+                <td>{{todo.id}}</td>
+                <td>{{todo.text}}</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data(){
+            return{
+                todos:[
+                    {id:1, text:"어린이 공원 산책하기"},
+                    {id:2, text:"Vue 공부하기"},
+                    {id:3, text:"문제풀기"},
+                    {id:4, text:"라디오 듣기"},
+                    {id:5, text:"영화보기"},
+                ]
+            }
+        }
+    }).mount("#app");
+</script>

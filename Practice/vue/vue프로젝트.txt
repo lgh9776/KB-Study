@@ -1,0 +1,10 @@
+npm init vue@latest : 가장 최신 버전으로 설치
+프로젝트가 만들어질 폴더로 이동
+
+cmd에서 
+npm init vue@latest
+vue-project 이름이 자동으로 만들어짐
+
+cd myapp1
+npm install
+npm run dev

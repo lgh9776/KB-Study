@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+
+    </div>
+</body>
+</html>
+
+<script>
+    Vue.createApp({
+        data(){
+            return{
+                count:0
+            }
+        }
+        //여러개의 컴포넌트를 만들 수 있다
+        //컴포넌트는 독자적인 html, css, javascript 코드로 구성
+        , "components":{
+            "my-component":{
+                "template": //디자인 파트
+                    `<div>
+                        <h3 style='color:blue' v-on:click='click'>MyComponent</h3>
+                        <h3 style='color:red'>This is first component</h3>    
+                    </div>`,
+
+                "methods":{
+                    "click":function(){
+                        alert("click");
+                    }
+                }
+            }
+        }
+    }).mount("#app");
+</script>

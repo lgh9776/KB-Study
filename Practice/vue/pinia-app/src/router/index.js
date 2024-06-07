@@ -23,6 +23,16 @@ const router = createRouter({
       path: '/calculator',
       name: 'calculator',
       component: () => import('../views/CalcView.vue')
+    },
+    {
+      path: '/todo/list',
+      name: 'todolist',
+      component: () => import('../components/todo/TodoList.vue')
+    },
+    {
+      path: '/todo/view/:id',
+      name: 'todoview',
+      component: () => import('../components/todo/TodoView.vue')
     }
   ]
 })
